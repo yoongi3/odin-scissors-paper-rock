@@ -1,18 +1,26 @@
 
 const choices = ["scissors", "paper", "rock"];
-//const results = ["lose", "draw", "win"];
 
 function getComputerChoice(){
 
-    var randomComputerChoice = Math.floor(Math.random() * 3)
+    let randomComputerChoice = Math.floor(Math.random() * 3)
 
     return(choices[randomComputerChoice]);
 }
 
+function getPlayerChoice(message){
+    let playerChoice = prompt(message).toLowerCase();
+
+    if (playerChoice == "scissors" || playerChoice == "paper" || playerChoice == "rock")
+        return playerChoice;
+    else
+        getPlayerChoice("Check your spelling, Scissors Paper Rock");
+}
+
 function playRound (playerSelection, computerSelection){
 
-    const playerIndex = choices.indexOf(playerSelection);
-    const computerIndex = choices.indexOf(computerSelection);
+    let playerIndex = choices.indexOf(playerSelection);
+    let computerIndex = choices.indexOf(computerSelection);
 
     if (playerIndex == computerIndex){
         return "draw";
@@ -32,8 +40,8 @@ function game(){
     var computerScore = 0;
 
     for (i = 1; i <= numberOfRounds; i++){
+        var playerSelection = getPlayerChoice("Scissors Paper Rock!");
         const computerSelection = getComputerChoice();
-        const playerSelection = prompt();
         const round = playRound(playerSelection, computerSelection);
 
         console.log("Round " + i + ": player choice: " + playerSelection + " || computer choice: " + computerSelection)
