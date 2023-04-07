@@ -4,7 +4,7 @@ const choices = ["scissors", "paper", "rock"];
 let rockBtn = document.getElementById('rock');
 let paperBtn = document.getElementById('paper');
 let scissorsBtn = document.getElementById('scissors');
-
+let round = 0;
 rockBtn.addEventListener("click", function() {
     playerSelection = "rock";
     playRound(playerSelection);
@@ -27,66 +27,36 @@ function getComputerChoice(){
     computerSelection = choices[randomComputerChoice];
 }
 
+const container = document.querySelector('.result');
+const newDiv = document.createElement('div');    
+container.appendChild(newDiv);
+
 function playRound (playerSelection){
+    round += 1;
+
+    while (newDiv.firstChild)
+        newDiv.firstChild.remove();
 
     getComputerChoice();
-    console.log("player " + playerSelection);
-    console.log("computer " + computerSelection);
+
+    let currentRound = ("round: " + round + " player: " + playerSelection + " computer: " + computerSelection + " ");
 
     let playerIndex = choices.indexOf(playerSelection);
     let computerIndex = choices.indexOf(computerSelection);
 
     if (playerIndex == computerIndex){
-        console.log("draw");
+        const newContent = document.createTextNode(currentRound + "It's a draw :|");
+        newDiv.appendChild(newContent);
         return "draw";
     }
     if (playerIndex - computerIndex == -1 || playerIndex - computerIndex == 2){
-        console.log("win");
+        const newContent = document.createTextNode(currentRound + "You win :)");
+        newDiv.appendChild(newContent);
         return "win";
     }
     else{
-        console.log("lose");
+        const newContent = document.createTextNode(currentRound + "You lose :(");
+        newDiv.appendChild(newContent);
         return "lose";
     }
-}
-
-function game(){
-    const numberOfRounds = 5;
-
-    var playerScore = 0;
-    var computerScore = 0;
-
-    for (i = 1; i <= numberOfRounds; i++){
-        var playerSelection = getPlayerChoice("Scissors Paper Rock!");
-        const computerSelection = getComputerChoice();
-        const round = playRound(playerSelection, computerSelection);
-
-        console.log("Round " + i + ": player choice: " + playerSelection + " || computer choice: " + computerSelection)
-        
-        round;
-
-        if(round == "draw"){
-            console.log("This round was a draw.");
-            console.log("The Score is " + playerScore + " : " + computerScore);  
-        }
-        if(round == "win"){
-            playerScore += 1;
-            console.log("You win this round");
-            console.log("The Score is " + playerScore + " : " + computerScore);  
-
-        }
-        if(round == "lose"){
-            computerScore += 1;
-            console.log("You lose this round");
-            console.log("The Score is " + playerScore + " : " + computerScore);  
-        }
-    }
-
-    console.log("The final score is " + playerScore + " : " + computerScore);
-    if (playerScore == computerScore)
-        console.log("It's a Draw :)");
-    if (playerScore > computerScore)
-        console.log("You Win :D");
-    if (playerScore < computerScore)
-        console.log("You Lose :(");   
 }
