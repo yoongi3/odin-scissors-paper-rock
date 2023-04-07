@@ -1,34 +1,51 @@
 
 const choices = ["scissors", "paper", "rock"];
 
+let rockBtn = document.getElementById('rock');
+let paperBtn = document.getElementById('paper');
+let scissorsBtn = document.getElementById('scissors');
+
+rockBtn.addEventListener("click", function() {
+    playerSelection = "rock";
+    playRound(playerSelection);
+})
+
+paperBtn.addEventListener("click", function() {
+    playerSelection = "paper";
+    playRound(playerSelection);
+})
+
+scissorsBtn.addEventListener("click", function() {
+    playerSelection = "scissors";
+    playRound(playerSelection);
+})
+
 function getComputerChoice(){
 
     let randomComputerChoice = Math.floor(Math.random() * 3)
 
-    return(choices[randomComputerChoice]);
+    computerSelection = choices[randomComputerChoice];
 }
 
-function getPlayerChoice(message){
-    let playerChoice = prompt(message).toLowerCase();
+function playRound (playerSelection){
 
-    if (playerChoice == "scissors" || playerChoice == "paper" || playerChoice == "rock")
-        return playerChoice;
-    else
-        getPlayerChoice("Check your spelling, Scissors Paper Rock");
-}
-
-function playRound (playerSelection, computerSelection){
+    getComputerChoice();
+    console.log("player " + playerSelection);
+    console.log("computer " + computerSelection);
 
     let playerIndex = choices.indexOf(playerSelection);
     let computerIndex = choices.indexOf(computerSelection);
 
     if (playerIndex == computerIndex){
+        console.log("draw");
         return "draw";
     }
     if (playerIndex - computerIndex == -1 || playerIndex - computerIndex == 2){
+        console.log("win");
         return "win";
     }
     else{
+        console.log("lose");
         return "lose";
     }
 }
@@ -73,5 +90,3 @@ function game(){
     if (playerScore < computerScore)
         console.log("You Lose :(");   
 }
-
-game();
